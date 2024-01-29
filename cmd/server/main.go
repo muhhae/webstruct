@@ -1,20 +1,27 @@
 package main
 
 import (
-	"gohtml/pkg/element"
 	"log"
 	"net/http"
+
+	"github.com/muhhae/webstruct/pkg/element"
+	"github.com/muhhae/webstruct/pkg/webtype"
 )
 
 func main() {
-
 	div := element.Div{
-		Class: []string{"tes", "example"},
-		Attributes: map[string]string{
-			"id":    "test",
-			"style": "color: red",
+		Class: []string{
+			"tes",
+			"example",
 		},
-		Children: []element.HtmlElement{
+		Id: "test-id",
+		Style: map[string]string{
+			"color": "red",
+		},
+		Attributes: map[string]string{
+			"custom-attr": "customm-attributes",
+		},
+		Children: []webtype.HtmlElement{
 			element.RawText{
 				Text: "Hello World",
 			},
