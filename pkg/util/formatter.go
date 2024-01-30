@@ -1,4 +1,4 @@
-package formatter
+package util
 
 import (
 	"fmt"
@@ -49,6 +49,6 @@ func StyleFormat(styles map[string]string) string {
 	return style
 }
 
-func CreateElement(tag string, attribute string, children string) string {
+func FormatElement(tag string, attribute string, children string) string {
 	return fmt.Sprintf("<%s %s>%s</%s>", tag, attribute, children, tag)
 }
