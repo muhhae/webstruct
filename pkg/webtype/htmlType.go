@@ -10,3 +10,6 @@ const (
 	Div  = "div"
 	Span = "span"
 )
+
+type Style map[string]string
+type Attribute map[string]string

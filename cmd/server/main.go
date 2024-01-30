@@ -15,10 +15,10 @@ func main() {
 			"example",
 		},
 		Id: "test-id",
-		Style: map[string]string{
+		Style: webtype.Style{
 			"color": "red",
 		},
-		CustomAttributes: map[string]string{
+		CustomAttributes: webtype.Attribute{
 			"custom-attr": "customm-attributes",
 		},
 		Children: []webtype.HtmlElement{
