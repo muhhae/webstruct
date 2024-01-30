@@ -6,30 +6,36 @@ import (
 )
 
 type CustomElement struct {
-	Tag        string
-	Attributes map[string]string
+	Tag        webtype.HtmlTag
+	Attributes webtype.Attribute
 	Children   []webtype.HtmlElement
 }
 
 func (e CustomElement) Html() string {
-	return util.FormatElement(e.Tag, util.AttrFormat(e.Attributes), util.ChildrenFormat(e.Children))
+	return util.FormatElement(e.Tag, e.Attributes, e.Children)
 }
 
 type Div struct {
 	Id               string
-	Style            map[string]string
+	Style            webtype.Style
 	Class            []string
-	CustomAttributes map[string]string
+	CustomAttributes webtype.Attribute
 	Children         []webtype.HtmlElement
 }
 
 func (d Div) Html() string {
-	if d.CustomAttributes == nil {
-		d.CustomAttributes = make(map[string]string)
-	}
-	d.CustomAttributes["class"] = util.ListToString(d.Class)
-	d.CustomAttributes["style"] = util.StyleFormat(d.Style)
-	return util.FormatElement(webtype.Div, util.AttrFormat(d.CustomAttributes), util.ChildrenFormat(d.Children))
+	return CustomElement{
+		Tag: webtype.Div,
+		Attributes: util.Combine(
+			d.CustomAttributes,
+			webtype.Attribute{
+				"id":    d.Id,
+				"style": util.StyleFormat(d.Style),
+				"class": util.ListToString(d.Class),
+			},
+		),
+		Children: d.Children,
+	}.Html()
 }
 
 type Span struct {
@@ -41,16 +47,18 @@ type Span struct {
 }
 
 func (s Span) Html() string {
-	if s.CustomAttributes == nil {
-		s.CustomAttributes = make(map[string]string)
-	}
-	s.CustomAttributes["class"] = util.ListToString(s.Class)
-	s.CustomAttributes["style"] = util.StyleFormat(s.Style)
-
-	if s.CustomAttributes == nil {
-		s.CustomAttributes = map[string]string{}
-	}
-	return util.FormatElement(webtype.Span, util.AttrFormat(s.CustomAttributes), util.ChildrenFormat(s.Children))
+	return CustomElement{
+		Tag: webtype.Span,
+		Attributes: util.Combine(
+			s.CustomAttributes,
+			webtype.Attribute{
+				"id":    s.Id,
+				"style": util.StyleFormat(s.Style),
+				"class": util.ListToString(s.Class),
+			},
+		),
+		Children: s.Children,
+	}.Html()
 }
 
 type RawText string
