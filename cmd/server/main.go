@@ -18,15 +18,25 @@ func main() {
 		Style: map[string]string{
 			"color": "red",
 		},
-		Attributes: map[string]string{
+		CustomAttributes: map[string]string{
 			"custom-attr": "customm-attributes",
 		},
 		Children: []webtype.HtmlElement{
-			element.RawText{
-				Text: "Hello World",
+			element.Span{
+				Children: []webtype.HtmlElement{
+					element.CustomElement{
+						Tag: "button",
+						Children: []webtype.HtmlElement{
+							element.RawText("Button"),
+						},
+					},
+					element.RawText("Hello World"),
+				},
 			},
 		},
 	}
+
+	// fmt.Println(div.Html())
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		_, err := w.Write([]byte(div.Html()))
