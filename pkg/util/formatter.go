@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+	"maps"
 
 	"github.com/muhhae/webstruct/pkg/webtype"
 )
@@ -49,6 +50,14 @@ func StyleFormat(styles map[string]string) string {
 	return style
 }
 
-func FormatElement(tag string, attribute string, children string) string {
-	return fmt.Sprintf("<%s %s>%s</%s>", tag, attribute, children, tag)
+func FormatElement(tag webtype.HtmlTag, attribute webtype.Attribute, children []webtype.HtmlElement) string {
+	return fmt.Sprintf("<%s %s>%s</%s>", tag, AttrFormat(attribute), ChildrenFormat(children), tag)
+}
+
+func Combine[K comparable, V any](M ...map[K]V) map[K]V {
+	m := map[K]V{}
+	for i := 0; i < len(M); i++ {
+		maps.Copy(m, M[i])
+	}
+	return m
 }
