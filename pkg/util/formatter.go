@@ -25,11 +25,11 @@ func AttrFormat(a map[string]string) string {
 		if value == "" {
 			continue
 		}
-		attribute += fmt.Sprintf("%s=\"%s\"", key, value)
+		attribute += fmt.Sprintf(" %s=\"%s\"", key, value)
 		count++
-		if count < len(a) {
-			attribute += " "
-		}
+		// if count < len(a) {
+		// 	attribute += " "
+		// }
 	}
 	return attribute
 }
@@ -51,7 +51,7 @@ func StyleFormat(styles map[string]string) string {
 }
 
 func FormatElement(tag webtype.HtmlTag, attribute webtype.Attribute, children []webtype.HtmlElement) string {
-	return fmt.Sprintf("<%s %s>%s</%s>", tag, AttrFormat(attribute), ChildrenFormat(children), tag)
+	return fmt.Sprintf("<%s%s>%s</%s>", tag, AttrFormat(attribute), ChildrenFormat(children), tag)
 }
 
 func Combine[K comparable, V any](M ...map[K]V) map[K]V {
