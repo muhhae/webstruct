@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"maps"
 
-	"github.com/muhhae/webstruct/pkg/webtype"
+	"github.com/muhhae/webstruct/webtype"
 )
 
 func ListToString(strs []string) string {

@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/muhhae/webstruct/pkg/element"
-	"github.com/muhhae/webstruct/pkg/webtype"
+	"github.com/muhhae/webstruct/element"
+	"github.com/muhhae/webstruct/webtype"
 )
 
 func main() {

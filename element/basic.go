@@ -1,8 +1,8 @@
 package element
 
 import (
-	"github.com/muhhae/webstruct/pkg/util"
-	"github.com/muhhae/webstruct/pkg/webtype"
+	"github.com/muhhae/webstruct/util"
+	"github.com/muhhae/webstruct/webtype"
 )
 
 type CustomElement struct {
