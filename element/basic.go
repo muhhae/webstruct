@@ -8,24 +8,24 @@ import (
 type CustomElement struct {
 	Tag        webtype.HtmlTag
 	Attributes webtype.Attribute
-	Children   []webtype.HtmlElement
+	Children   webtype.Children
 }
 
-func (e CustomElement) Html() string {
-	return util.FormatElement(e.Tag, e.Attributes, e.Children)
+func (c CustomElement) Html() string {
+	return util.FormatElement(c.Tag, c.Attributes, c.Children)
 }
 
 type Div struct {
 	Id               string
 	Style            webtype.Style
-	Class            []string
+	Class            webtype.Class
 	CustomAttributes webtype.Attribute
-	Children         []webtype.HtmlElement
+	Children         webtype.Children
 }
 
-func (d Div) Html() string {
+func (d Div) ToCustomElement() CustomElement {
 	return CustomElement{
-		Tag: webtype.Div,
+		Tag: "div",
 		Attributes: util.Combine(
 			d.CustomAttributes,
 			webtype.Attribute{
@@ -35,34 +35,37 @@ func (d Div) Html() string {
 			},
 		),
 		Children: d.Children,
-	}.Html()
+	}
+}
+
+func (d Div) Html() string {
+	return d.ToCustomElement().Html()
 }
 
 type Span struct {
-	Id               string
-	Style            map[string]string
-	Class            []string
-	CustomAttributes map[string]string
-	Children         []webtype.HtmlElement
+	Div
 }
 
 func (s Span) Html() string {
-	return CustomElement{
-		Tag: webtype.Span,
-		Attributes: util.Combine(
-			s.CustomAttributes,
-			webtype.Attribute{
-				"id":    s.Id,
-				"style": util.StyleFormat(s.Style),
-				"class": util.ListToString(s.Class),
-			},
-		),
-		Children: s.Children,
-	}.Html()
+	e := s.ToCustomElement()
+	e.Tag = "span"
+	return e.Html()
 }
 
 type RawText string
 
 func (t RawText) Html() string {
 	return string(t)
+}
+
+type A struct {
+	Div
+	Href string
+}
+
+func (a A) Html() string {
+	e := a.ToCustomElement()
+	e.Tag = "a"
+	e.Attributes["href"] = a.Href
+	return a.Html()
 }

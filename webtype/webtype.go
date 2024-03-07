@@ -6,10 +6,7 @@ type HtmlElement interface {
 
 type HtmlTag string
 
-const (
-	Div  = "div"
-	Span = "span"
-)
-
+type Class []string
 type Style map[string]string
 type Attribute map[string]string
+type Children []HtmlElement

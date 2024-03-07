@@ -27,14 +27,11 @@ func AttrFormat(a map[string]string) string {
 		}
 		attribute += fmt.Sprintf(" %s=\"%s\"", key, value)
 		count++
-		// if count < len(a) {
-		// 	attribute += " "
-		// }
 	}
 	return attribute
 }
 
-func ChildrenFormat(c []webtype.HtmlElement) string {
+func ChildrenFormat(c webtype.Children) string {
 	children := make([]string, len(c))
 	for i, e := range c {
 		children[i] = e.Html()
@@ -42,7 +39,7 @@ func ChildrenFormat(c []webtype.HtmlElement) string {
 	return ListToString(children)
 }
 
-func StyleFormat(styles map[string]string) string {
+func StyleFormat(styles webtype.Style) string {
 	style := ""
 	for key, val := range styles {
 		style += fmt.Sprintf("%s:%s", key, val)
@@ -50,7 +47,7 @@ func StyleFormat(styles map[string]string) string {
 	return style
 }
 
-func FormatElement(tag webtype.HtmlTag, attribute webtype.Attribute, children []webtype.HtmlElement) string {
+func FormatElement(tag webtype.HtmlTag, attribute webtype.Attribute, children webtype.Children) string {
 	return fmt.Sprintf("<%s%s>%s</%s>", tag, AttrFormat(attribute), ChildrenFormat(children), tag)
 }
 
