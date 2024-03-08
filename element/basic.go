@@ -52,6 +52,16 @@ func (s Span) Html() string {
 	return e.Html()
 }
 
+type P struct {
+	Div
+}
+
+func (p P) Html() string {
+	e := p.ToCustomElement()
+	e.Tag = "p"
+	return e.Html()
+}
+
 type RawText string
 
 func (t RawText) Html() string {
@@ -68,4 +78,34 @@ func (a A) Html() string {
 	e.Tag = "a"
 	e.Attributes["href"] = a.Href
 	return a.Html()
+}
+
+type H1 struct {
+	Div
+}
+
+func (h1 H1) Html() string {
+	e := h1.ToCustomElement()
+	e.Tag = "h1"
+	return e.Html()
+}
+
+type H2 struct {
+	Div
+}
+
+func (h2 H2) Html() string {
+	e := h2.ToCustomElement()
+	e.Tag = "h2"
+	return e.Html()
+}
+
+type H3 struct {
+	Div
+}
+
+func (h3 H3) Html() string {
+	e := h3.ToCustomElement()
+	e.Tag = "h3"
+	return e.Html()
 }
